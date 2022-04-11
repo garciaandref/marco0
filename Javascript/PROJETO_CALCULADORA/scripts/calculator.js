@@ -4,5 +4,6 @@
  * MODEL - TRATA OS DADOS, INTEREGE COM O BANCO DE DADOS, ACESSA OS MESMO
 */
 
-let calculator = new CalcController();
+window.calculator = new CalcController();
+
 
