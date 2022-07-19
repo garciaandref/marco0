@@ -8,12 +8,15 @@
 class CalcController {
     /**CONSTRUTOR */
     constructor() {
+        this._operation = [];
         this._locale = 'pt-BR';
         this._displayCalcEl = document.querySelector("#display");
         this._dateEl = document.querySelector("#data");
         this._timeEl = document.querySelector("#hora");
         this._currentDate;
         this.initialize();
+        this.initButtonEvents();
+
     }
 
     /**Manipulando DOM
@@ -39,6 +42,84 @@ class CalcController {
     }
 
     /**Criando um método */
+    // Método para percorrer os eventos ao clicar
+    addEventListenerAll(element,events, fn){
+        // Percorrer todos os eventos, um por vez
+        // usamos o split como separador para os eventos
+        events.split(' ').forEach(event => {
+            element.addEventListener(event, fn, false);
+        })
+    }
+
+    clearAll(){
+
+    }
+
+    clearEntry(){
+
+    }
+
+    setError(){
+        this.displayCalc
+
+        
+    }
+
+    execBtn(value){
+        switch(value){
+            case 'ac':
+                this.clearAll();    
+                break;
+            case 'ce':
+                this.clearEntry();
+                break;
+            case 'soma':
+
+                break;
+            case 'subtracao':
+
+                break;
+            case 'divisao':
+
+                break;
+            case 'multiplicacao':
+
+                break;
+            case 'porcento':
+
+                break;
+            case 'igual':
+
+                break;
+            default:
+                this.setError();
+                break;
+        }
+    }
+
+    initButtonEvents(){
+        /**Pega todos os elementos dentro do g dentro do id buttons e parts */
+        let buttons = document.querySelectorAll("#buttons > g, #parts > g");
+
+        // Percorrer todos os botões, para cada botão que ele encontrar na lista, ele executa o código
+        buttons.forEach((btn, index) => {
+            
+            // Chamamos o método addEventListenerAll dentro desta mesma função, e passamos os eventos de click e drag(método para selecionar o botão mesmo se clicarmos e arrastarmos) 
+            this.addEventListenerAll(btn, "click drag", e => {
+                // Usamos .className.baseVal, para pegarmos somente a classe do botão, pois se trata de um SVG, loga após
+                // usamos o replace para retirar o nome btn da classe, assim trazendo só o numero ou função do botao da calculadora
+                let textBtn = btn.className.baseVal.replace("btn-", "");
+
+                this.execBtn();
+            });
+
+            // Trocando o icone do cursor do mouse
+            this.addEventListenerAll(btn, "mouseover mouseup mousedown", e => {
+                btn.style.cursor = "pointer";
+            });
+        });
+    }
+
     setDisplayDateTime(){
         this.displayDate = this.currentDate.toLocaleDateString(this._locale, {day: "2-digit", month: "long", year: "numeric"});
         this.displayTime = this.currentDate.toLocaleTimeString(this._locale);
@@ -62,11 +143,15 @@ class CalcController {
     }
 
     // Retorna o atributo _displayCalc
-    get displayClac() {
+    get displayCalc
+    
+    () {
         return this._displayCalcEl.innerHTML;
     }
     // Guardamos um valor com o set
-    set displayClac(value) {
+    set displayCalc
+    
+    (value) {
         this._displayCalcEl.innerHTML = value;
     }
     /**No console podemos executar o comando dir(variavel), como por exemplo, definir a variavel dt =  new Date(), e logo após executar
